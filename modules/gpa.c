@@ -15,6 +15,8 @@
  {
  double percentage = getPercentage(result);
 
+ if (!result.completed) return 0.0;
+
  for (int i = 0; i < 9; i++)
  {
  if (percentage >= gradeBoundaries[i]) return gradePoints[i];
@@ -26,6 +28,8 @@
  char *getLetterGrade(CourseResult result)
  {
  double percentage = getPercentage(result);
+
+ if (!result.completed) return "I";
 
  for (int i = 0; i < 9; i++)
  {
@@ -39,13 +43,14 @@
  {
  double weighted_points = 0.0;
  double total_credits = 0.0;
- 
+
  for (int i = 0; i < n_results; i++)
  {
+ if (!results[i].completed) continue;
  weighted_points += getGradePoint(results[i]) * results[i].course->credit;
  total_credits += results[i].course->credit;
  }
 
  if (total_credits == 0.0) return 0.0;
  return weighted_points / total_credits;
- }
+ }    
